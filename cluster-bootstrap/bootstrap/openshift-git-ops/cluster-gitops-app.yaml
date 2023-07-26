@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: bootstrap/cluster
-    repoURL: https://github.com/mabehiro/cluster-bootstrap.git
+    repoURL: https://github.com/mabehiro/ocp-cluster-bootstrap.git
     targetRevision: main
   syncPolicy:
     automated:
