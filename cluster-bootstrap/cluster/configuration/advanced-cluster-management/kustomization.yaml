@@ -4,4 +4,4 @@ resources:
 - provisioning.yaml
 - mirror-registry-ca.yaml
 - multiclusterhub.yaml
-- agentservcieconfig.yaml
+- agentserviceconfig.yaml
