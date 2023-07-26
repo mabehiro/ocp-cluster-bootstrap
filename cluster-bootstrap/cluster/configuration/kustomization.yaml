@@ -7,5 +7,5 @@ resources:
 - odf-operator
 - openshift-local-storage
 - patch-operator
-- topology-aware-lifecycle-manager
+# - topology-aware-lifecycle-manager
 
