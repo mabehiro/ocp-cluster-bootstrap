@@ -1,0 +1,55 @@
+---
+- name: Setup mirror registry 
+  hosts: registry
+  become: false
+  gather_facts: False
+  vars_files:
+    - vminfo.yaml
+
+  tasks:
+    - name: installing podman
+      become: true
+      package:
+        name: "podman"
+        state: present
+  
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ lookup('env','HOME') }}/mirror"
+        state: directory
+    
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ lookup('env','HOME') }}/mirror/images"
+        state: directory
+    
+    - name: Extract mirror package 
+      ansible.builtin.unarchive: 
+        src: mirror-registry.tar.gz
+        dest: "{{ lookup('env','HOME') }}/mirror"
+
+    - name: Copy SSL key and cert
+      copy:
+        src: "./ssl/{{ item }}"
+        dest: "{{ lookup('env','HOME') }}/mirror"
+      loop:
+        - server-ssl.crt
+        - server-ssl.key
+
+    # Install mirror-registry
+
+    - name: Install mirror-registry
+      command: "./mirror/mirror-registry install --quayHostname {{ inventory_hostname }} --quayRoot {{ lookup('env','HOME') }}/mirror/images --sslKey ./mirror/server-ssl.key --sslCert ./mirror/server-ssl.crt --initPassword changeme"
+      async: 1000
+      poll: 0
+      register: sleeper
+
+    - name: 'Check on async task'
+      async_status:
+        jid: "{{ sleeper.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
+    
+    - debug:
+        var: sleeper

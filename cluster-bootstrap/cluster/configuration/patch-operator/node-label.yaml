@@ -1,0 +1,23 @@
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Patch
+metadata:
+  name: ocs-label
+  namespace: patch-operator
+spec:
+  patches:
+    simple-patch:
+      patchTemplate: |
+        metadata:
+          labels:
+            cluster.ocs.openshift.io/openshift-storage: ''
+      patchType: application/strategic-merge-patch+json
+      targetObjectRef:
+        apiVersion: v1
+        kind: Node
+        labelSelector:
+          matchLabels:
+            node-role.kubernetes.io/worker: ""
+  serviceAccountRef:
+    name: node-label-patcher
+    namespace: patch-operator

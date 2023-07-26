@@ -1,0 +1,120 @@
+---
+- name: livbirt VM host setup
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Disable password requirements when using sudo
+      copy:
+        content: mabe ALL=(root) NOPASSWD:ALL
+        dest: "/etc/sudoers.d/{{ hostvars[inventory_hostname].username }}"
+        owner: root
+        group: root
+        mode: 0440
+
+    - name: set hostname
+      command: "hostnamectl set-hostname {{ inventory_hostname }}"
+      register: hostnamectl
+    - debug:
+        var: hostnamectl.rc
+
+# Setup a bridge for sushy and VM
+    - name: Create a bridge
+      community.general.nmcli:
+        type: bridge
+        conn_name: baremetal
+        ifname: baremetal
+        state: present
+
+# Add phisycal interfact to the bridge
+    - name: Add eno1 to the brdige
+      command: 'nmcli con add type bridge-slave ifname eno1 master baremetal'
+      register: nmcli
+    - debug:
+        var: nmcli.rc
+
+    - name: Activate bridge interface
+      command: 'nmcli con up bridge-slave-eno1'
+      register: nmcli
+    - debug:
+        var: nmcli.rc
+
+    - name: Check interfaces
+      command: 'ip -br a'
+      register: nmcli
+    - debug:
+        var: nmcli
+
+# Install Requirements for sushy and libvirt
+
+    - name: Install bind-util libguestsfs-tools cloud-init
+      dnf:
+        name: "{{ item }}"
+        state: present
+      loop: 
+        - bind-utils
+        - libguestfs-tools
+        - cloud-init
+    
+    - name: virt module
+      command: dnf module install virt -yy
+      register: dnf_virt
+  
+    - name: virt install
+      dnf:
+        name: virt-install
+        state: present
+
+    - name: enable libvirtd
+      service:
+        name: libvirtd
+        state: started
+        enabled: yes
+
+ 
+ # Sushy setup
+    - name: podman install
+      dnf:
+        name: podman
+        state: present
+
+
+    - name: sushy direcotry
+      file:
+        path: /etc/sushy
+        state: directory
+
+    - name: sushy file
+      copy:
+        src: ./sushy-emulator.conf
+        dest: /etc/sushy/
+
+    - name: build sushy image
+      command: 'podman create --net host --privileged --name sushy-emulator -v "/etc/sushy":/etc/sushy -v "/var/run/libvirt":/var/run/libvirt "quay.io/metal3-io/sushy-tools" sushy-emulator -i :: -p 8000 --config /etc/sushy/sushy-emulator.conf'
+      register: sushypod
+    - debug:
+        var: sushypod.rc
+
+
+    - name: Runnig sushy via systemd
+      command: sh -c 'podman generate systemd --restart-policy=always -t 1 sushy-emulator > /etc/systemd/system/sushy-emulator.service'
+
+    - name: daemon reload
+      command: "{{ item }}"
+      loop: 
+        - systemctl restart sushy-emulator.service
+        - systemctl enable sushy-emulator.service
+        - systemctl status sushy-emulator.service
+
+
+# update firewall
+    - name: start firewalld
+      firewalld:
+        port: 8000/tcp
+        permanent: yes
+        state: enabled
+
+    - name: setup user for libvirt remote connection
+      command: "usermod -a -G libvirt {{ hostvars[inventory_hostname].username }}"
+
+

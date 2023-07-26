@@ -1,0 +1,35 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: AgentServiceConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: '-5'
+  name: agent
+  namespace: assisted-installer
+spec:
+  databaseStorage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 15Gi
+    storageClassName: ocs-storagecluster-ceph-rbd
+  filesystemStorage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
+    storageClassName: ocs-storagecluster-ceph-rbd
+  mirrorRegistryRef:
+    name: mirror-registry-ca
+  osImages:
+  - openshiftVersion: "4.13"
+    cpuArchitecture: x86_64
+    rootFSUrl: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.13/4.13.5/rhcos-4.13.5-x86_64-live-rootfs.x86_64.img
+    url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.13/4.13.5/rhcos-4.13.5-x86_64-live.x86_64.iso
+    version: 413.92.202307140015-0
+  - openshiftVersion: "4.12"
+    cpuArchitecture: x86_64
+    rootFSUrl: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.12/4.12.2/rhcos-4.12.2-x86_64-live-rootfs.x86_64.img
+    url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.12/4.12.2/rhcos-4.12.2-x86_64-live.x86_64.iso
+    version: 412.86.202301311551-0

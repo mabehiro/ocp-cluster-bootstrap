@@ -1,0 +1,117 @@
+apiVersion: v1
+baseDomain: cotton.blue
+compute:
+- architecture: amd64 
+  hyperthreading: Enabled
+  name: worker
+  replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+metadata:
+  name: hub
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 192.168.1.0/24
+  networkType: OVNKubernetes 
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  baremetal:
+    apiVIPs:
+    - 192.168.1.125
+    ingressVIPs:
+    - 192.168.1.126
+pullSecret: '{"auths":{"registry1.cotton.blue:8443":{"auth":"aW5pdDpjaGFuZ2VtZQ==","email":"mabe@redhat.com"}}}'
+sshKey: |
+  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD2Sh84/z9jj4Neg4xI3jlPO6C8sLdz3ykJjo+vD+WveOSBql2LiJ1k4z/AcBC55/ZPfZt6oK1pqtHYTIcZLobH7ApHvRSdsDmVgh67u/Lx5XMZ5ct6O9jC+lp98vNjGP5c9Zfcn1zIzcPATleOS52ubGQJA58ryuckoEq6TyyfvcHjUMNBv7AULDQ68syv0i9tuS+SH9cUgaEQGHsTyL9wA5fudh2JpLMvZigE0KqAwP/Z91QLyMFZsuxoy7x0CFBFym4miXiF7gVSpYsJxcUbb6qRSeHi4PGhNBm3IytRcbTOrwcdCx2E2uiyuWliC85NtMslQHYy+8eXcUavSW3GZnxgjenUnaNAIhQ1GQdUAdRmsLCzRehzBi/i3mc4ZgkhODQHacCg14RKj7c5GgyAh3b/6M9D43sqrjZa2vH1+RwID9wgWngVjJmy/RZ3tIhT94GKUn4/AWfAUpAtM1c3C1sxqRFTk6Q9otYm1Qq95/V0ewBQnbuzkpJSlCjtNqM= mabe@mabe.remote.csb
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  MIIDuzCCAqOgAwIBAgIUOQYRwhrgBYM+fPLqLiVKcUoS/rYwDQYJKoZIhvcNAQEL
+  BQAwbTELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAlRYMQ8wDQYDVQQHDAZEQUxMQVMx
+  DDAKBgNVBAoMA09DUDEQMA4GA1UECwwHSE9NRUxBQjEgMB4GA1UEAwwXQ2VydGlm
+  aWNhdGlvbiBBdXRob3JpdHkwHhcNMjMwNzEyMTcxMjI4WhcNMzMwNzA5MTcxMjI4
+  WjBtMQswCQYDVQQGEwJVUzELMAkGA1UECAwCVFgxDzANBgNVBAcMBkRBTExBUzEM
+  MAoGA1UECgwDT0NQMRAwDgYDVQQLDAdIT01FTEFCMSAwHgYDVQQDDBdDZXJ0aWZp
+  Y2F0aW9uIEF1dGhvcml0eTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+  AL5NKKCj2AoWhKY5Y/K17tip0cEjB8JCWmsJT3KdNJCNMz0x34i+QlhxYv6I04J8
+  3OT8PRLdz1S2cbcHM1Y5RhYH744JfJ7BR0eB1BOHik3zhd+bkgo3ATk2MoD/sBWz
+  +Aa9t6F5ziEiAPlgEcIPd7+MCow7a5fZgrU0ryZN7dA9+VFydsLBQ5ZPKWR2xrcq
+  NBZ4xyVbnZ8RPK/W01SiHT/MtvOd34TzWe6gUMV6JdVSQjHXNOo1Nzes8/IGIMHm
+  a56enbgYqaVue/eO/hqSlcTwulzVSRLFwm7i9xiX2aqGDPdiJ4mjNkFZkat5RJfg
+  6kUlWG9Z6cqSt7lJvVO+ax8CAwEAAaNTMFEwHQYDVR0OBBYEFKKY9nrUc1XT/VL0
+  1lc7Kj++tcc4MB8GA1UdIwQYMBaAFKKY9nrUc1XT/VL01lc7Kj++tcc4MA8GA1Ud
+  EwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBABsVO9ZT9dHmiXJgWg5cNQEK
+  q4xZ0YkDDBP5CAqJYpjXCI1J8rDnGSGNJt0Jn20Z7Ahaq6YmWmVRYMM1Qa6sF9+x
+  Pzc2uCZsli1aJBLNql3xn5b300d1NU1vCWYgWy0a2xxk4V4y5EmVVcwSZpGQCMGk
+  Ypj31wyFpo/EvHBMx7VAb5ExBTQSDQGRaxWNPbDsGRQGHc2BwtqUL4KGf72T4HsL
+  4dqg7P9UKyJln3vNYJ5l2JrBUE61Ir0yz+/kLn3mtVx7p7hXoAVvIa4aHyUhH5R2
+  DqZw0usgi0AWIRxjEtZLvAyNmfMqTcBfb2myoEwTLDXcKUobwhsca2cD1xLl5dA=
+  -----END CERTIFICATE-----
+imageContentSources:
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/ubi8
+    source: registry.access.redhat.com/ubi8
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/ubi8
+    source: registry.redhat.io/ubi8
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/container-native-virtualization
+    source: registry.redhat.io/container-native-virtualization
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/openshift-update-service
+    source: registry.redhat.io/openshift-update-service
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/openshift4
+    source: registry.redhat.io/openshift4
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/nvidia
+    source: nvcr.io/nvidia
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/nvidia
+    source: registry.connect.redhat.com/nvidia
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/odf4
+    source: registry.redhat.io/odf4
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/oadp
+    source: registry.redhat.io/oadp
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/lvms4
+    source: registry.redhat.io/lvms4
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/rhceph
+    source: registry.redhat.io/rhceph
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/multicluster-engine
+    source: registry.redhat.io/multicluster-engine
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/rhel8
+    source: registry.redhat.io/rhel8
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/rhmtc
+    source: registry.redhat.io/rhmtc
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/rhacm2
+    source: registry.redhat.io/rhacm2
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/openshift-gitops-1
+    source: registry.redhat.io/openshift-gitops-1
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/cert-manager
+    source: registry.redhat.io/cert-manager
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/rh-sso-7
+    source: registry.redhat.io/rh-sso-7
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/openshift/release
+    source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+  - mirrors:
+    - registry1.cotton.blue:8443/mirror/openshift/release-images
+    source: quay.io/openshift-release-dev/ocp-release
+

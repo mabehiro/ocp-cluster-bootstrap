@@ -1,0 +1,67 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+storageConfig:
+  registry:
+    imageURL: registry1.cotton.blue:8443/mirror/oc-mirror-metadata
+    skipTLS: false
+mirror:
+  platform:
+    channels:
+    - name: stable-4.13
+      type: ocp
+    graph: true
+  operators:
+  - catalog: registry.redhat.io/redhat/certified-operator-index:v4.13
+    packages:
+    - name: gpu-operator-certified
+      channels:
+      - name: v23.3
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.13
+    packages:
+    - name: advanced-cluster-management
+      channels:
+      - name: release-2.8
+    - name: lvms-operator
+      channels:
+      - name: stable-4.13
+    - name: multicluster-engine
+      channels:
+      - name: stable-2.3
+    - name: odf-operator
+      channels:
+      - name: stable-4.13
+    - name: openshift-gitops-operator
+      channels:
+      - name: latest
+    - name: redhat-oadp-operator
+      channels:
+      - name: stable-1.2
+    - name: kubevirt-hyperconverged
+      channels:
+      - name: stable
+    - name: cincinnati-operator
+      channels:
+      - name: v1
+    - name: topology-aware-lifecycle-manager
+      channels:
+      - name: stable
+    - name: sriov-network-operator 
+      channels:
+      - name: stable
+    - name: openshift-cert-manager-operator
+      channels:
+      - name: stable-v1
+    - name: local-storage-operator
+      channels:
+      - name: stable
+  - catalog: registry.redhat.io/redhat/community-operator-index:v4.14
+    packages:
+    - name: patch-operator
+      channels:
+      - name: alpha
+  additionalImages:
+  - name: registry.redhat.io/ubi8/ubi:latest
+  - name: docker.io/calico/ctl:v3.26.1
+  - name: docker.io/calico/node:v3.17.1
+  - name: quay.io/tigera/operator:v1.30.4
+  helm: {}

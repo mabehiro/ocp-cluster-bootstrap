@@ -1,0 +1,14 @@
+#cloud-config
+
+# Users
+users:
+  - name: mabe
+    groups: adm,sys,wheel
+    shell: /bin/bash
+    home: /home/mabe
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_pwauth: true
+    plain_text_passwd: redhat
+    lock_passwd: false
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD2Sh84/z9jj4Neg4xI3jlPO6C8sLdz3ykJjo+vD+WveOSBql2LiJ1k4z/AcBC55/ZPfZt6oK1pqtHYTIcZLobH7ApHvRSdsDmVgh67u/Lx5XMZ5ct6O9jC+lp98vNjGP5c9Zfcn1zIzcPATleOS52ubGQJA58ryuckoEq6TyyfvcHjUMNBv7AULDQ68syv0i9tuS+SH9cUgaEQGHsTyL9wA5fudh2JpLMvZigE0KqAwP/Z91QLyMFZsuxoy7x0CFBFym4miXiF7gVSpYsJxcUbb6qRSeHi4PGhNBm3IytRcbTOrwcdCx2E2uiyuWliC85NtMslQHYy+8eXcUavSW3GZnxgjenUnaNAIhQ1GQdUAdRmsLCzRehzBi/i3mc4ZgkhODQHacCg14RKj7c5GgyAh3b/6M9D43sqrjZa2vH1+RwID9wgWngVjJmy/RZ3tIhT94GKUn4/AWfAUpAtM1c3C1sxqRFTk6Q9otYm1Qq95/V0ewBQnbuzkpJSlCjtNqM= mabe@mabe.remote.csb

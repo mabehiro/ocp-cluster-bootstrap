@@ -1,0 +1,19 @@
+---
+# VM roles and mac address
+masters:
+  - nodename: master1
+    mac: 52:54:00:2a:45:c6
+  - nodename: master2
+    mac: 52:54:00:c3:4b:67 
+  - nodename: master3
+    mac: 52:54:00:7c:76:94 
+workers:
+  - nodename: worker1
+    mac: 52:54:00:f4:f4:d4 
+  - nodename: worker2
+    mac: 52:54:00:5e:b6:e5 
+  - nodename: worker3 
+    mac: 52:54:00:34:a6:3d 
+registry:
+  - nodename: registry1
+    mac: 52:54:00:34:a6:4d 

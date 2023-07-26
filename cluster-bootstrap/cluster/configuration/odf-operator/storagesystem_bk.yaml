@@ -1,0 +1,45 @@
+apiVersion: odf.openshift.io/v1alpha1
+kind: StorageSystem
+metadata:
+  creationTimestamp: "2023-07-25T23:18:18Z"
+  finalizers:
+  - storagesystem.odf.openshift.io
+  generation: 1
+  name: ocs-storagecluster-storagesystem
+  namespace: openshift-storage
+  resourceVersion: "1950139"
+  uid: 3c335460-f40d-4cdd-8419-1a3b2c11c878
+spec:
+  kind: storagecluster.ocs.openshift.io/v1
+  name: ocs-storagecluster
+  namespace: openshift-storage
+status:
+  conditions:
+  - lastHeartbeatTime: "2023-07-25T23:18:19Z"
+    lastTransitionTime: "2023-07-25T23:18:19Z"
+    message: Reconcile is completed successfully
+    reason: ReconcileCompleted
+    status: "True"
+    type: Available
+  - lastHeartbeatTime: "2023-07-25T23:18:19Z"
+    lastTransitionTime: "2023-07-25T23:18:19Z"
+    message: Reconcile is completed successfully
+    reason: ReconcileCompleted
+    status: "False"
+    type: Progressing
+  - lastHeartbeatTime: "2023-07-25T23:18:19Z"
+    lastTransitionTime: "2023-07-25T23:18:18Z"
+    message: StorageSystem CR is valid
+    reason: Valid
+    status: "False"
+    type: StorageSystemInvalid
+  - lastHeartbeatTime: "2023-07-25T23:18:19Z"
+    lastTransitionTime: "2023-07-25T23:18:18Z"
+    reason: Ready
+    status: "True"
+    type: VendorCsvReady
+  - lastHeartbeatTime: "2023-07-25T23:18:19Z"
+    lastTransitionTime: "2023-07-25T23:18:18Z"
+    reason: Found
+    status: "True"
+    type: VendorSystemPresent

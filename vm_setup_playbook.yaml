@@ -1,0 +1,76 @@
+---
+- name:  Launch VMs for OCP -- ACM 
+  hosts: baremetal
+  become: true
+  vars_files:
+    - vminfo.yaml
+
+  tasks:
+    # Create QEMU image for VMs
+    - name: Create image for masters
+      command: 'qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.nodename }}.qcow2 200G'
+      register: qcowcreation
+      loop: "{{ masters }}"
+    - debug:
+        var: qcowcreation.msg
+
+    - name: Create image for workers  
+      command: 'qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.nodename }}.qcow2 200G'
+      register: qcowcreation
+      loop: "{{ workers }}"
+    - debug:
+        var: qcowcreation.msg
+
+    - name: Create image for workers' storage  
+      command: 'qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.nodename }}-odf.qcow2 100G'
+      register: qcowcreation
+      loop: "{{ workers }}"
+    - debug:
+        var: qcowcreation.msg
+    
+#    - name: Create image for registry
+#      command: 'qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.nodename }}.qcow2 500G'
+#      register: qcowcreation
+#      loop: "{{ registry }}"
+#    - debug:
+#        var: qcowcreation.msg
+
+    # Define VMs
+    - name: Define vm from xml and set autostart for master
+      vars:
+        nodename: "{{ item.nodename }}"
+        mac: "{{ item.mac }}"
+      community.libvirt.virt:
+        command: define
+        xml: "{{ lookup('template', 'vm_master.xml.j2') }}"
+        autostart: yes
+      loop: "{{ masters }}"
+    
+    - name: Define vm from xml and set autostart for worker
+      vars:
+        nodename: "{{ item.nodename }}"
+        mac: "{{ item.mac }}"
+      community.libvirt.virt:
+        command: define
+        xml: "{{ lookup('template', 'vm_worker.xml.j2') }}"
+        autostart: yes
+      loop: "{{ workers }}"
+
+#    - name: Define vm from xml and set autostart for Registry
+#      vars:
+#        nodename: "{{ item.nodename }}"
+#        mac: "{{ item.mac }}"
+#      community.libvirt.virt:
+#        command: define
+#        xml: "{{ lookup('template', 'vm_registry.xml.j2') }}"
+#        autostart: yes
+#      loop: "{{ registry }}"
+
+    # Listing VMs
+    - name: List all VMs
+      community.libvirt.virt:
+        command: list_vms
+      register: all_vms
+    - debug:
+        msg: "{{ all_vms }}"
+    

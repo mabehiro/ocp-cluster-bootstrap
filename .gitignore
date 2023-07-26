@@ -1,0 +1,15 @@
+*.tar.gz
+.oc-mirror.log
+*.qcow2
+cloud-init/*.iso
+installer/*
+!installer/*.yaml
+!installer/README.md
+mirror/*
+!mirror/imageset-config.yaml
+!mirror/README.md
+ssl/*
+!ssl/README.md
+!ssl/*.conf
+ztp-pipeline
+

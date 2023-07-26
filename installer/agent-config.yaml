@@ -1,0 +1,120 @@
+apiVersion: v1alpha1
+kind: AgentConfig
+metadata:
+  name: hub
+rendezvousIP: 192.168.1.113
+hosts:
+  - hostname: master1
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/vda
+    interfaces:
+      - name: eno1
+        macAddress: 52:54:00:2a:45:c6
+    networkConfig:
+      interfaces:
+        - name: eno1
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:2a:45:c6
+          ipv4:
+            enabled: true
+            dhcp: true
+          ipv6:
+            enabled: false
+            dhcp: false
+  - hostname: master2
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/vda
+    interfaces:
+      - name: eno1
+        macAddress: 52:54:00:c3:4b:67
+    networkConfig:
+      interfaces:
+        - name: eno1
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:c3:4b:67
+          ipv4:
+            enabled: true
+            dhcp: true
+          ipv6:
+            enabled: false
+            dhcp: false
+  - hostname: master3
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/vda
+    interfaces:
+      - name: eno1
+        macAddress: 52:54:00:7c:76:94
+    networkConfig:
+      interfaces:
+        - name: eno1
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:7c:76:94
+          ipv4:
+            enabled: true
+            dhcp: true
+          ipv6:
+            enabled: false
+            dhcp: false
+  - hostname: worker1
+    role: worker
+    rootDeviceHints:
+      deviceName: /dev/vda
+    interfaces:
+      - name: eno1
+        macAddress: 52:54:00:f4:f4:d4
+    networkConfig:
+      interfaces:
+        - name: eno1
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:f4:f4:d4
+          ipv4:
+            enabled: true
+            dhcp: true
+          ipv6:
+            enabled: false
+            dhcp: false
+  - hostname: worker2
+    role: worker
+    rootDeviceHints:
+      deviceName: /dev/vda
+    interfaces:
+      - name: eno1
+        macAddress: 52:54:00:5e:b6:e5
+    networkConfig:
+      interfaces:
+        - name: eno1
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:5e:b6:e5
+          ipv4:
+            enabled: true
+            dhcp: true
+          ipv6:
+            enabled: false
+            dhcp: false
+  - hostname: worker3
+    role: worker
+    rootDeviceHints:
+      deviceName: /dev/vda
+    interfaces:
+      - name: eno1
+        macAddress: 52:54:00:34:a6:3d
+    networkConfig:
+      interfaces:
+        - name: eno1
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:34:a6:3d
+          ipv4:
+            enabled: true
+            dhcp: true
+          ipv6:
+            enabled: false
+            dhcp: false

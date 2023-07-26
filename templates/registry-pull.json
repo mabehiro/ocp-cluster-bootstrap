@@ -1,0 +1,8 @@
+{
+  "auths": {
+    "registry1.cotton.blue": {
+      "auth": "aW5pdDpjaGFuZ2VtZQ==",
+      "email": "mabe@redhat.com"
+    }
+  }
+}

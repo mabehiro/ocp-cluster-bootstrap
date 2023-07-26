@@ -1,0 +1,204 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: '-6'
+  name: mirror-registry-ca
+  namespace: multicluster-engine
+  labels:
+    app: assisted-service
+data:
+  ca-bundle.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIDuzCCAqOgAwIBAgIUOQYRwhrgBYM+fPLqLiVKcUoS/rYwDQYJKoZIhvcNAQEL
+    BQAwbTELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAlRYMQ8wDQYDVQQHDAZEQUxMQVMx
+    DDAKBgNVBAoMA09DUDEQMA4GA1UECwwHSE9NRUxBQjEgMB4GA1UEAwwXQ2VydGlm
+    aWNhdGlvbiBBdXRob3JpdHkwHhcNMjMwNzEyMTcxMjI4WhcNMzMwNzA5MTcxMjI4
+    WjBtMQswCQYDVQQGEwJVUzELMAkGA1UECAwCVFgxDzANBgNVBAcMBkRBTExBUzEM
+    MAoGA1UECgwDT0NQMRAwDgYDVQQLDAdIT01FTEFCMSAwHgYDVQQDDBdDZXJ0aWZp
+    Y2F0aW9uIEF1dGhvcml0eTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+    AL5NKKCj2AoWhKY5Y/K17tip0cEjB8JCWmsJT3KdNJCNMz0x34i+QlhxYv6I04J8
+    3OT8PRLdz1S2cbcHM1Y5RhYH744JfJ7BR0eB1BOHik3zhd+bkgo3ATk2MoD/sBWz
+    +Aa9t6F5ziEiAPlgEcIPd7+MCow7a5fZgrU0ryZN7dA9+VFydsLBQ5ZPKWR2xrcq
+    NBZ4xyVbnZ8RPK/W01SiHT/MtvOd34TzWe6gUMV6JdVSQjHXNOo1Nzes8/IGIMHm
+    a56enbgYqaVue/eO/hqSlcTwulzVSRLFwm7i9xiX2aqGDPdiJ4mjNkFZkat5RJfg
+    6kUlWG9Z6cqSt7lJvVO+ax8CAwEAAaNTMFEwHQYDVR0OBBYEFKKY9nrUc1XT/VL0
+    1lc7Kj++tcc4MB8GA1UdIwQYMBaAFKKY9nrUc1XT/VL01lc7Kj++tcc4MA8GA1Ud
+    EwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBABsVO9ZT9dHmiXJgWg5cNQEK
+    q4xZ0YkDDBP5CAqJYpjXCI1J8rDnGSGNJt0Jn20Z7Ahaq6YmWmVRYMM1Qa6sF9+x
+    Pzc2uCZsli1aJBLNql3xn5b300d1NU1vCWYgWy0a2xxk4V4y5EmVVcwSZpGQCMGk
+    Ypj31wyFpo/EvHBMx7VAb5ExBTQSDQGRaxWNPbDsGRQGHc2BwtqUL4KGf72T4HsL
+    4dqg7P9UKyJln3vNYJ5l2JrBUE61Ir0yz+/kLn3mtVx7p7hXoAVvIa4aHyUhH5R2
+    DqZw0usgi0AWIRxjEtZLvAyNmfMqTcBfb2myoEwTLDXcKUobwhsca2cD1xLl5dA=
+    -----END CERTIFICATE-----
+  registries.conf: |
+    unqualified-search-registries = []
+    
+    [[registry]]
+      location = "registry.access.redhat.com/ubi8"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/ubi8"
+    
+    [[registry]]
+      location = "registry.redhat.io/ubi8"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/ubi8"
+    
+    [[registry]]
+      location = "registry.redhat.io/container-native-virtualization"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/container-native-virtualization"
+    
+    [[registry]]
+      location = "registry.redhat.io/openshift-update-service"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/openshift-update-service"
+    
+    [[registry]]
+      location = "registry.redhat.io/openshift4"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/openshift4"
+    
+    [[registry]]
+      location = "nvcr.io/nvidia"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/nvidia"
+    
+    [[registry]]
+      location = "registry.connect.redhat.com/nvidia"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/nvidia"
+    
+    [[registry]]
+      location = "registry.redhat.io/odf4"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/odf4"
+    
+    [[registry]]
+      location = "registry.redhat.io/oadp"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/oadp"
+    
+    [[registry]]
+      location = "registry.redhat.io/lvms4"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/lvms4"
+    
+    [[registry]]
+      location = "registry.redhat.io/rhceph"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/rhceph"
+    
+    [[registry]]
+      location = "registry.redhat.io/multicluster-engine"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/multicluster-engine"
+    
+    [[registry]]
+      location = "registry.redhat.io/rhel8"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/rhel8"
+    
+    [[registry]]
+      location = "registry.redhat.io/rhmtc"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/rhmtc"
+    
+    [[registry]]
+      location = "registry.redhat.io/rhacm2"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/rhacm2"
+    
+    [[registry]]
+      location = "registry.redhat.io/openshift-gitops-1"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/openshift-gitops-1"
+    
+    [[registry]]
+      location = "registry.redhat.io/cert-manager"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/cert-manager"
+    
+    [[registry]]
+      location = "registry.redhat.io/rh-sso-7"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/rh-sso-7"
+    
+    [[registry]]
+      location = "quay.io/openshift-release-dev/ocp-v4.0-art-dev"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/openshift/release"
+    
+    [[registry]]
+      location = "quay.io/openshift-release-dev/ocp-release"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/openshift/release-images"
+    
+    [[registry]]
+      location = "quay.io/tigera"
+      mirror-by-digest-only = true
+      prefix = ""
+    
+      [[registry.mirror]]
+        location = "registry1.cotton.blue:8443/mirror/tigera"
+

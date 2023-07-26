@@ -1,0 +1,8 @@
+[baremetal]
+veterans
+
+[baremetal:vars]
+username=mabe
+
+[registry]
+registry1.cotton.blue
