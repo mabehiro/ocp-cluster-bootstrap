@@ -27,6 +27,13 @@
       loop: "{{ workers }}"
     - debug:
         var: qcowcreation.msg
+
+    - name: Create image for workers' storage2  
+      command: 'qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.nodename }}-odf2.qcow2 100G'
+      register: qcowcreation
+      loop: "{{ workers }}"
+    - debug:
+        var: qcowcreation.msg
     
 #    - name: Create image for registry
 #      command: 'qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.nodename }}.qcow2 500G'
