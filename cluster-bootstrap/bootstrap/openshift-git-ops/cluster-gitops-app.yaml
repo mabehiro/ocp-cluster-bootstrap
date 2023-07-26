@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: bootstrap/cluster
+    path: cluster-bootstrap/cluster
     repoURL: https://github.com/mabehiro/ocp-cluster-bootstrap.git
     targetRevision: main
   syncPolicy:

@@ -3,7 +3,5 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - subscription.yaml
-- storagecluster.yaml
-- storagesystem.yaml
 
 
