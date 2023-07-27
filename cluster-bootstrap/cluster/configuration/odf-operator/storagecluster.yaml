@@ -28,7 +28,7 @@ spec:
   nodeTopologies: {}
   storageDeviceSets:
   - config: {}
-    count: 1
+    count: 3
     dataPVCTemplate:
       metadata: {}
       spec:
