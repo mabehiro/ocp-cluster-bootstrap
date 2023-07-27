@@ -1,0 +1,132 @@
+apiVersion: ocs.openshift.io/v1
+kind: StorageCluster
+metadata:
+  annotations:
+    cluster.ocs.openshift.io/local-devices: "true"
+    uninstall.ocs.openshift.io/cleanup-policy: delete
+    uninstall.ocs.openshift.io/mode: graceful
+  creationTimestamp: "2023-07-27T21:57:59Z"
+  finalizers:
+  - storagecluster.ocs.openshift.io
+  generation: 2
+  name: ocs-storagecluster
+  namespace: openshift-storage
+  ownerReferences:
+  - apiVersion: odf.openshift.io/v1alpha1
+    kind: StorageSystem
+    name: ocs-storagecluster-storagesystem
+    uid: b14c11b3-c768-409b-b097-ece9cb73739d
+  resourceVersion: "62793"
+  uid: 10014788-a8d5-44e9-9e15-319bade13ffb
+spec:
+  arbiter: {}
+  encryption:
+    kms: {}
+  externalStorage: {}
+  flexibleScaling: true
+  managedResources:
+    cephBlockPools: {}
+    cephCluster: {}
+    cephConfig: {}
+    cephDashboard: {}
+    cephFilesystems: {}
+    cephNonResilientPools: {}
+    cephObjectStoreUsers: {}
+    cephObjectStores: {}
+    cephRBDMirror: {}
+    cephToolbox: {}
+  mirroring: {}
+  monDataDirHostPath: /var/lib/rook
+  network:
+    connections:
+      encryption: {}
+    multiClusterService: {}
+  nodeTopologies: {}
+  storageDeviceSets:
+  - config: {}
+    count: 6
+    dataPVCTemplate:
+      metadata: {}
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: "1"
+        storageClassName: local-block
+        volumeMode: Block
+      status: {}
+    name: ocs-deviceset-local-block
+    placement: {}
+    preparePlacement: {}
+    replica: 1
+    resources: {}
+status:
+  conditions:
+  - lastHeartbeatTime: "2023-07-27T21:58:00Z"
+    lastTransitionTime: "2023-07-27T21:58:00Z"
+    message: Version check successful
+    reason: VersionMatched
+    status: "False"
+    type: VersionMismatch
+  - lastHeartbeatTime: "2023-07-27T21:59:02Z"
+    lastTransitionTime: "2023-07-27T21:58:01Z"
+    message: 'Error while reconciling: some StorageClasses were skipped while waiting
+      for pre-requisites to be met: [ocs-storagecluster-cephfs,ocs-storagecluster-ceph-rbd]'
+    reason: ReconcileFailed
+    status: "False"
+    type: ReconcileComplete
+  - lastHeartbeatTime: "2023-07-27T21:58:00Z"
+    lastTransitionTime: "2023-07-27T21:58:00Z"
+    message: Initializing StorageCluster
+    reason: Init
+    status: "False"
+    type: Available
+  - lastHeartbeatTime: "2023-07-27T21:58:00Z"
+    lastTransitionTime: "2023-07-27T21:58:00Z"
+    message: Initializing StorageCluster
+    reason: Init
+    status: "True"
+    type: Progressing
+  - lastHeartbeatTime: "2023-07-27T21:58:00Z"
+    lastTransitionTime: "2023-07-27T21:58:00Z"
+    message: Initializing StorageCluster
+    reason: Init
+    status: "False"
+    type: Degraded
+  - lastHeartbeatTime: "2023-07-27T21:58:00Z"
+    lastTransitionTime: "2023-07-27T21:58:00Z"
+    message: Initializing StorageCluster
+    reason: Init
+    status: Unknown
+    type: Upgradeable
+  failureDomain: host
+  failureDomainKey: kubernetes.io/hostname
+  failureDomainValues:
+  - worker1
+  - worker2
+  - worker3
+  images:
+    ceph:
+      actualImage: registry.redhat.io/rhceph/rhceph-6-rhel9@sha256:01b39bf32df3c124a91115c9a8bcf1bceb3eb12c6c5068a6e99cf50908137bdb
+      desiredImage: registry.redhat.io/rhceph/rhceph-6-rhel9@sha256:01b39bf32df3c124a91115c9a8bcf1bceb3eb12c6c5068a6e99cf50908137bdb
+    noobaaCore:
+      desiredImage: registry.redhat.io/odf4/mcg-core-rhel9@sha256:693fd52948f54162bc209c44204b5e25c52cf5c51e365f048a9826d400b17969
+    noobaaDB:
+      desiredImage: registry.redhat.io/rhel8/postgresql-12@sha256:f7f678d44d5934ed3d95c83b4428fee4b616f37e8eadc5049778f133b4ce3713
+  kmsServerConnection: {}
+  nodeTopologies:
+    labels:
+      kubernetes.io/hostname:
+      - worker1
+      - worker2
+      - worker3
+  phase: Progressing
+  relatedObjects:
+  - apiVersion: ceph.rook.io/v1
+    kind: CephCluster
+    name: ocs-storagecluster-cephcluster
+    namespace: openshift-storage
+    resourceVersion: "61826"
+    uid: 027f11a7-3f26-45bc-b66b-e22b49db8d93
+  version: 4.13.0

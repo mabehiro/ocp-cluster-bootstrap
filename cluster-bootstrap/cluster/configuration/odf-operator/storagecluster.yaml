@@ -22,13 +22,18 @@ spec:
     cephNonResilientPools: {}
     cephObjectStoreUsers: {}
     cephObjectStores: {}
+    cephRBDMirror: {}
     cephToolbox: {}
   mirroring: {}
   monDataDirHostPath: /var/lib/rook
+  network:
+    connections:
+      encryption: {}
+    multiClusterService: {}
   nodeTopologies: {}
   storageDeviceSets:
   - config: {}
-    count: 1
+    count: 6
     dataPVCTemplate:
       metadata: {}
       spec:
