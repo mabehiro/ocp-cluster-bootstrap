@@ -3,4 +3,5 @@ kind: Kustomization
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "-8"
 resources:
+- storagecluster.yaml
 - storagesystem.yaml

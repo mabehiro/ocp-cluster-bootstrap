@@ -4,7 +4,7 @@ commonAnnotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 resources:
 # - advanced-cluster-management
-# - odf-operator
+- odf-operator
 - openshift-local-storage
 - patch-operator
 # - topology-aware-lifecycle-manager
