@@ -60,6 +60,7 @@ mirror:
       channels:
       - name: alpha
   additionalImages:
+  - name: registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.13.1
   - name: registry.redhat.io/ubi8/ubi:latest
   - name: docker.io/calico/ctl:v3.26.1
   - name: docker.io/calico/node:v3.17.1

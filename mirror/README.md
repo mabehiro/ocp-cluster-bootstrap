@@ -11,4 +11,4 @@ oc-mirror list operators --catalog=registry.redhat.io/redhat/redhat-operator-ind
 
 
 #  After update imaegset-config, upload the images
-oc-mirror --config=./imageset-config.yaml docker://registry1.cotton.blue:8443/mirror
+oc-mirror --config=./imageset-config.yaml docker://registry1.cotton.blue:8443/mirror --continue-on-error
