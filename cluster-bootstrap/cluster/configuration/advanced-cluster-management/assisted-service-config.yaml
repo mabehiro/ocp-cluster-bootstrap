@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assisted-service-config
+  namespace: open-cluster-management
+data:
+  # LOG_LEVEL: "debug"
+  # SUPPORT_L2: "false"
+  # ISO_IMAGE_TYPE: "full-iso"
+  PUBLIC_CONTAINER_REGISTRIES: "registry1.cotton.blue:8443"
