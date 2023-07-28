@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fakefish-192-168-1-62
+  name: fakefish-192-168-1-62
+  namespace: fakefish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fakefish-192-168-1-62
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: fakefish-192-168-1-62
+    spec:
+      containers:
+      - image: quay.io/lhalleb/fakefish:hpe-dl360-gen9
+        name: fakefish
+        resources: {}
+        args:
+        - "--remote-bmc"
+        - "192.168.1.62"
+        - "--tls-mode"
+        - "disabled"

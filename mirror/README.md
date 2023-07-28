@@ -12,3 +12,9 @@ oc-mirror list operators --catalog=registry.redhat.io/redhat/redhat-operator-ind
 
 #  After update imaegset-config, upload the images
 oc-mirror --config=./imageset-config.yaml docker://registry1.cotton.blue:8443/mirror --continue-on-error
+
+# Update imagecontentsourcepolicies.operator.openshift.io to add new image
+
+(base) [mabe@mabe results-1690507677]$ pwd
+/home/mabe/Projects/HomeLab/WIP/baremetalsetup/mirror/oc-mirror-workspace/results-1690507677
+(base) [mabe@mabe results-1690507677]$ oc apply -f imageContentSourcePolicy.yaml

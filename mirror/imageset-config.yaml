@@ -60,6 +60,7 @@ mirror:
       channels:
       - name: alpha
   additionalImages:
+  - name: quay.io/lhalleb/fakefish:hpe-dl360-gen9
   - name: registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.13.1
   - name: registry.redhat.io/ubi8/ubi:latest
   - name: docker.io/calico/ctl:v3.26.1

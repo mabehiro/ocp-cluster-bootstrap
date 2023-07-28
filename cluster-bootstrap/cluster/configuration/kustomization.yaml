@@ -7,5 +7,6 @@ resources:
 - odf-operator
 - openshift-local-storage
 - patch-operator
+- fakefish
 # - topology-aware-lifecycle-manager
 

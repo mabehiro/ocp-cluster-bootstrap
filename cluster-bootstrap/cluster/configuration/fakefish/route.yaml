@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: fakefish-192-168-1-62
+  namespace: fakefish
+spec:
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  to:
+    kind: "Service"
+    name: fakefish-192-168-1-62
+    weight: null

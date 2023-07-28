@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: fakefish-192-168-1-62
+  name: fakefish-192-168-1-62
+  namespace: fakefish
+spec:
+  ports:
+  - name: http
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: fakefish-192-168-1-62
+  type: ClusterIP
