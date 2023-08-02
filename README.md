@@ -11,9 +11,9 @@ This repository serves as the baseline for my lab, encompassing various experime
 ## Prerequisite
 - The KVM host is running with [CentOS 9-Stream](https://cloud.centos.org/centos/9-stream/x86_64/images/). Also, we will use it for registry VM.
 - In this lab, [mirror registry](https://docs.openshift.com/container-platform/4.13/installing/disconnected_install/installing-mirroring-creating-registry.html#mirror-registry-localhost_installing-mirroring-creating-registry) for Red Hat OpenShift is used. Download mirror-registry.tar.gz.
-- Install [oc-mirror](https://docs.openshift.com/container-platform/4.13/installing/disconnected_install/installing-mirroring-creating-registry.html#mirror-registry-localhost_installing-mirroring-creating-registry).
+- Install [oc-mirror](https://docs.openshift.com/container-platform/4.13/installing/disconnected_install/installing-mirroring-disconnected.html).
 
-Download CentOS-Stream-GenericCloud-9-20220718.0.x86_64.qcow2 and mirror-registry.tar.gz, and locate them under the git folder.
+Download CentOS-Stream-GenericCloud-9-20220718.0.x86_64.qcow2 and mirror-registry.tar.gz, and locate them under the git folder after clone.
 
 ## Ansible playbooks
 Four playbooks are included. \
@@ -29,40 +29,50 @@ Those four playbooks drive the bootstrap up to the point that ArgoCD gitops is r
 Currently I have modifications and manual steps between playbooks in order to make the setup generic and simplified. However, as the lab evolves, my intention is to automate these manual steps to improve reproducibility and eliminate human error. 
 
 
-## 1. KVM host setup
+## KVM host setup
 First step is setting up a KVM host using an Ansible playbook. This playbook will create a bridge interface, install libvirtd and configure Sushy, a tool used to emulate baremetal nodes, by leveraging the containerized Sushy tool based on [Brandon's configuration](https://cloudcult.dev/sushy-emulator-redfish-for-the-virtualization-nation/).
 
 ~~~
 $ ansible-playbook -i inventry baremetal_setup_playbook.yaml
 ~~~
 
-## 2. Registry Setup
-### 2-1 Cloud-init iso 
+## Mirror Registry Setup
+### cloud-init iso 
 To configure access for a CentOS instance using cloud-init, you need to create a cloud-init ISO image containing the necessary user data and meta-data. 
 
 ~~~
 $ mkisofs -output init.iso -volid cidata -joliet -rock {user-data,meta-data}
 ~~~
 
-### 2-2 Launch Registry VM
+### Launch Registry VM
 Proceed with setting up a private registry for our clusters. Launch a CentOS VM using the Ansible playbook. 
 
 ~~~
 $ ansible-playbook -i inventry registry_vm_setup_playbook.yaml
 ~~~
 
-### 2-2 SSL Certificate Creation
-Before configuring the mirror-registry, we need to set up the SSL certificate to secure our private registry. Follow the steps in the instructions under the "ssl" folder.
+### SSL Certificate Creation
+Before configuring the mirror-registry, we need to set up the SSL certificate to secure our private registry. Follow the steps in the instructions under the ["ssl" folder](https://github.com/mabehiro/ocp-cluster-bootstrap/tree/main/ssl).
 
-### 2-3 Configure the mirror-regsitry by Ansible playbook
+### Configure the mirror-regsitry by Ansible playbook
 To install and configure the mirror-registry with SSL certificate, run the Ansible playbook as follows.
 
 ~~~
 $ ansible-playbook -i inventry registry_setup_playbook.yaml
 ~~~
 
+### OC Mirror 
+We use the oc-mirror OpenShift CLI (oc) plugin to mirror images to the mirror registry.
+To push images to the mirror-registry with oc-mirror, follow these steps:
 
-## OC Mirror 
+1. In the "mirror" folder, you should find an "image-setconfig.yaml" file. Edit this file according to your needs to specify the operators and their channels that you want to mirror. Refer to the [readme](https://github.com/mabehiro/ocp-cluster-bootstrap/tree/main/mirror) in the mirror folder. 
+
+2. Run the following command to push the specified images to your mirror-registry:
+
+~~~
+$ cd mirror
+$ oc-mirror --config=./imageset-config.yaml docker://registry1.cotton.blue:8443/mirror --continue-on-error
+~~~
 
 ## Agent Install setup
 
