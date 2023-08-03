@@ -3,10 +3,10 @@ kind: Kustomization
 commonAnnotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 resources:
-- advanced-cluster-management
-- odf-operator
-- openshift-local-storage
 - patch-operator
-- fakefish
+- openshift-local-storage
+- odf-operator
+- advanced-cluster-management
+# - fakefish
 # - topology-aware-lifecycle-manager
 
