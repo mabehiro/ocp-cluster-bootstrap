@@ -11,7 +11,7 @@ This repository serves as the baseline for my lab, encompassing various experime
 4. [Mirror Registry Setup](#mirror-registry-setup)
 5. [OC-Mirror](#oc-mirror)
 6. [Agent Based Install and build image](#agent-based-installer-and-build-install-image)
-7. [Bootstrap Cluster and Operators](#clouster-bootstrap)
+7. [Bootstrap Cluster and Operators](#cluster-bootstrap)
 <!-- TOC -->
 
 ## Prerequisite
@@ -95,7 +95,7 @@ This playbook will create VMs with the specified configurations for 3 master nod
 ~~~
 ansible-playbook -i inventory vm_setup_playbook.yaml -K
 ~~~
-## Clouster bootstrap 
+## Cluster bootstrap 
 Great! \
 Now that our OpenShift Cluster is up and running, we can bootstrap the Advanced Cluster Management (ACM) and other components using the GitOps operator. \
 
