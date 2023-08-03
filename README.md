@@ -109,6 +109,9 @@ The provided command will apply the necessary configurations to deploy the App o
 oc apply -k cluster-bootstrap/
 ~~~
 
+> If the oc apply -k cluster-bootstrap/ command appears to be stuck or takes an unusually long time to complete, apply each configuration separately using the -k option to narrow down the cofiguration for specific need and operator. 
+
+![app of apps](/images/a600b587a00014f568a7dbb2090ffae10.png)
 
 #### Dry run, -K asks password for sudo
 ~~~
