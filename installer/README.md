@@ -277,11 +277,11 @@ EOF
 
 ## create the agent image
 
-~~
+~~~
 cp install-config.yaml ./manifests
 cp agent-config.yaml ./manifests
 openshift-install --dir manifests agent create image
-~~
+~~~
 
 ## boot VMs and the watch
 ~~~
