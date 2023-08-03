@@ -103,6 +103,7 @@ ansible-playbook -i inventory vm_setup_playbook.yaml -K
 
 ## Clouster bootstrap 
 Great! Now that our OpenShift Cluster is up and running, we can bootstrap the Advanced Cluster Management (ACM) and other components using the GitOps operator. \
+
 The provided command will apply the necessary configurations to deploy the App of Apps pattern application on top of Gitops operator:
 
 ~~~
