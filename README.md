@@ -102,13 +102,20 @@ ansible-playbook -i inventory vm_setup_playbook.yaml -K
 ~~~
 
 ## Clouster bootstrap 
+Great! Now that our OpenShift Cluster is up and running, we can bootstrap the Advanced Cluster Management (ACM) and other components using the GitOps operator. \
+The provided command will apply the necessary configurations to deploy the App of Apps pattern application on top of Gitops operator:
 
-### Dry run, -K asks password for sudo
+~~~
+oc apply -k cluster-bootstrap/
+~~~
+
+
+#### Dry run, -K asks password for sudo
+~~~
 ansible-playbook -i inventory baremetal_setup_playbook.yaml --check -K
-
-### Jinja test
+~~~
+#### Jinja test
+~~~
 ansible all -i "localhost," -c local -m template -a "src=./templates/vm_master.xml.j2 dest=./test.txt" --extra-vars='{"masters": ["master1", "master2", "master3"]}'
+~~~
 
-
-### ZTP-pipeline setup
-oc patch argocd openshift-gitops -n openshift-gitops --type=merge --patch-file ${ZTP-PIPELINE}/deployment/argocd-openshift-gitops-patch.json
