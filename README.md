@@ -92,7 +92,7 @@ rsync --rsync-path="sudo rsync" agent.x86_64.iso mabe@veterans:/var/lib/libvirt/
 ~~~
 
 ### Extra Manifests (Optional):
-If you want to include extra manifests in the install image, you can follow the steps from my blog (https://cloudcult.dev/ocp-agent-based-install-with-extra-manifests-calico/) to add those manifests to the image.
+If you want to include extra manifests in the install image, you can follow the steps from [my blog](https://cloudcult.dev/ocp-agent-based-install-with-extra-manifests-calico/) to add those manifests to the image.
 
 ## ACM VM setup and Install Cluster 
 This playbook will create VMs with the specified configurations for 3 master nodes and 3 worker nodes. The agent ISO will be attached to each VM, initiating the installation process for the OpenShift Cluster. The cluster installation process will begin after starting the VMs. 
