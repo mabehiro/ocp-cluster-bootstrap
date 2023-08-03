@@ -1,16 +1,28 @@
-# install installer
+# Agent-Based-Installer setup
+
+Here is the officical product [documentation](https://docs.openshift.com/container-platform/4.13/installing/installing_with_agent_based_installer/installing-with-agent-based-installer.html#installing-ocp-agent-retrieve_installing-with-agent-based-installer).
+
+## install installer
+~~~
 sudo mv openshift-install /usr/local/bin/
+~~~
 
-# Install nmstate dependency 
+## Install nmstate dependency 
 
+~~~
 sudo dnf install /usr/bin/nmstatectl -y
+~~~
 
-# make directory
+## make directory
+install-config.yaml and agent-config.yaml need to be placed under working directory. After building the image, those yaml will be deleted and replaced by artifacts. Take backups.
+
+~~~
 mkdir manifests
+~~~
 
+## Create install-config.yaml
 
-# Create install-config.yaml
-
+~~~
 cat << EOF > ./manifests/install-config.yaml
 apiVersion: v1
 baseDomain: cotton.blue
@@ -135,10 +147,10 @@ imageContentSources:
     source: quay.io/openshift-release-dev/ocp-release
 
 EOF
+~~~
 
-
-# Generate Agent-config.yaml
-
+## Generate Agent-config.yaml
+~~~
 cat > agent-config.yaml << EOF
 apiVersion: v1alpha1
 kind: AgentConfig
@@ -261,12 +273,18 @@ hosts:
             enabled: true
             dhcp: true
 EOF
+~~~
 
-# create the agent image
+## create the agent image
 
+~~
+cp install-config.yaml ./manifests
+cp agent-config.yaml ./manifests
 openshift-install --dir manifests agent create image
+~~
 
-
-# boot VMs and the watch
+## boot VMs and the watch
+~~~
 openshift-install --dir manifests agent wait-for bootstrap-complete --log-level=info
-
+openshift-install --dir manifests agent wait-for install-complete
+~~~

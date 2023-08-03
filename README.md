@@ -12,6 +12,7 @@ This repository serves as the baseline for my lab, encompassing various experime
 - The KVM host is running with [CentOS 9-Stream](https://cloud.centos.org/centos/9-stream/x86_64/images/). Also, we will use it for registry VM.
 - In this lab, [mirror registry](https://docs.openshift.com/container-platform/4.13/installing/disconnected_install/installing-mirroring-creating-registry.html#mirror-registry-localhost_installing-mirroring-creating-registry) for Red Hat OpenShift is used. Download mirror-registry.tar.gz.
 - Install [oc-mirror](https://docs.openshift.com/container-platform/4.13/installing/disconnected_install/installing-mirroring-disconnected.html).
+- Downalod and install [the agent-based-installer](https://docs.openshift.com/container-platform/4.13/installing/installing_with_agent_based_installer/installing-with-agent-based-installer.html#installing-ocp-agent-retrieve_installing-with-agent-based-installer).
 
 Download CentOS-Stream-GenericCloud-9-20220718.0.x86_64.qcow2 and mirror-registry.tar.gz, and locate them under the git folder after clone.
 
@@ -74,9 +75,31 @@ $ cd mirror
 $ oc-mirror --config=./imageset-config.yaml docker://registry1.cotton.blue:8443/mirror --continue-on-error
 ~~~
 
-## Agent Install setup
+## Agent Based Installer and build install image
 
-## VM setup and Install Cluster 
+Under the "installer" folder, you should find the "install-config.yaml" and "agent-config.yaml" files. Make sure these files are properly configured according to your desired OpenShift installation settings and agent configurations.
+
+Run the following command to build the install image:
+
+~~~
+openshift-install --dir manifests agent create image
+~~~
+
+Copy the agent.x86_64.iso image to the KVM host (veterans) using rsync:
+
+~~~
+rsync --rsync-path="sudo rsync" agent.x86_64.iso mabe@veterans:/var/lib/libvirt/images/
+~~~
+
+### Extra Manifests (Optional):
+If you want to include extra manifests in the install image, you can follow the steps from my blog (https://cloudcult.dev/ocp-agent-based-install-with-extra-manifests-calico/) to add those manifests to the image.
+
+## ACM VM setup and Install Cluster 
+This playbook will create VMs with the specified configurations for 3 master nodes and 3 worker nodes. The agent ISO will be attached to each VM, initiating the installation process for the OpenShift Cluster. The cluster installation process will begin after starting the VMs. 
+
+~~~
+ansible-playbook -i inventory vm_setup_playbook.yaml -K
+~~~
 
 ## Clouster bootstrap 
 
