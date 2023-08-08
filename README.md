@@ -22,7 +22,7 @@ This repository serves as the baseline for my lab, encompassing various experime
 
 Download CentOS-Stream-GenericCloud-9-20220718.0.x86_64.qcow2 and mirror-registry.tar.gz, and locate them under the git folder after clone.
 
-## Cluster folder 
+## bootsratp/cluster  
  The cluster folder serves as a central location for housing operators and configurations related to the hub cluster. As the hub cluster evolves over time, it's essential to maintain and update this folder with new operators and configurations, while also ensuring that corresponding repository updates are made, which are described as following chapters. 
 
 ~~~
