@@ -6,12 +6,13 @@ This repository serves as the baseline for my lab, encompassing various experime
 ## Table of contents
 <!-- TOC -->
 1. [Prerequisite](#prerequisite)
-2. [Ansible playbooks](#ansible-playbooks)
-3. [KVM Host Setup](#kvm-host-setup)
-4. [Mirror Registry Setup](#mirror-registry-setup)
-5. [OC-Mirror](#oc-mirror)
-6. [Agent Based Install and build image](#agent-based-installer-and-build-install-image)
-7. [Bootstrap Cluster and Operators](#cluster-bootstrap)
+2. [bootstrap/cluster folder](#cluster-bootsratpcluster)
+3. [Ansible playbooks](#ansible-playbooks)
+4. [KVM Host Setup](#kvm-host-setup)
+5. [Mirror Registry Setup](#mirror-registry-setup)
+6. [OC-Mirror](#oc-mirror)
+7. [Agent Based Install and build image](#agent-based-installer-and-build-install-image)
+8. [Bootstrap Cluster and Operators](#cluster-bootstrap)
 <!-- TOC -->
 
 ## Prerequisite
