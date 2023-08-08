@@ -21,6 +21,27 @@ This repository serves as the baseline for my lab, encompassing various experime
 - Downalod and install [the agent-based-installer](https://docs.openshift.com/container-platform/4.13/installing/installing_with_agent_based_installer/installing-with-agent-based-installer.html#installing-ocp-agent-retrieve_installing-with-agent-based-installer).
 
 Download CentOS-Stream-GenericCloud-9-20220718.0.x86_64.qcow2 and mirror-registry.tar.gz, and locate them under the git folder after clone.
+
+## Cluster folder 
+ The cluster folder serves as a central location for housing operators and configurations related to the hub cluster. As the hub cluster evolves over time, it's essential to maintain and update this folder with new operators and configurations, while also ensuring that corresponding repository updates are made, which are described as following chapters. 
+
+~~~
+cluster/
+├── configuration
+│   ├── advanced-cluster-management
+│   ├── fakefish
+│   ├── odf-operator
+│   ├── openshift-local-storage
+│   ├── patch-operator
+│   └── topology-aware-lifecycle-manager
+└── operators
+    ├── advanced-cluster-management
+    ├── odf-operator
+    ├── openshift-local-storage
+    ├── patch-operator
+    └── topology-aware-lifecycle-manager
+~~~
+
 ## Ansible playbooks
 Four playbooks are included. \
 Those four playbooks drive the bootstrap up to the point that ArgoCD gitops is ready for cluster management. 
